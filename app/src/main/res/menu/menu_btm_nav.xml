@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/FirstFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/appbar_scrolling_view_behavior" />
+
+    <item
+        android:id="@+id/SecondFragment"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/action_settings" />
+
+</menu>

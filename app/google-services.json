@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "942911666642",
+    "project_id": "kottoy",
+    "storage_bucket": "kottoy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942911666642:android:f9ba57acafeabd0407700b",
+        "android_client_info": {
+          "package_name": "idv.fanboat.kottoy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "942911666642-ikk5gq2ii4tj8u34nfgjbgs824115j4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "idv.fanboat.kottoy",
+            "certificate_hash": "d020fde152deac4c834ed3963816a4a964b8df32"
+          }
+        },
+        {
+          "client_id": "942911666642-e40calvqgsjor7orq8mvvn6mm8ajdami.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANhgCm8nd86vBVj1u80Cukt25iA-K-GN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "942911666642-e40calvqgsjor7orq8mvvn6mm8ajdami.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

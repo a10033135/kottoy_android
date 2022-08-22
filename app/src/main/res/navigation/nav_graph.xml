@@ -24,5 +24,7 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+
+        <deepLink app:uri="kottoy://second" />
     </fragment>
 </navigation>

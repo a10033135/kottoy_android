@@ -1,18 +1,17 @@
 package idv.fanboat.kottoy.presentation.main
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import androidx.navigation.ui.setupWithNavController
+import com.socks.library.KLog
 import idv.fanboat.kottoy.R
 import idv.fanboat.kottoy.databinding.ActivityMainBinding
-import idv.fanboat.kottoy.presentation.login.LoginActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,11 +30,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.contentView.navView.setupWithNavController(navController)
     }
 
@@ -46,18 +40,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        if (item.itemId == android.R.id.home) {
+            onBackPressedDispatcher.onBackPressed()
+            return true // must return true to consume it here
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        KLog.i("TAG", supportFragmentManager.backStackEntryCount)
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+        return supportFragmentManager.backStackEntryCount > 0
+    }
+
+    override fun onNavigateUp(): Boolean {
+        return findNavController(R.id.nav_host_fragment_content_main).popBackStack()
     }
 }

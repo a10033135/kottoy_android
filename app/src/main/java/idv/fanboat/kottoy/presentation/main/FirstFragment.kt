@@ -1,45 +1,51 @@
 package idv.fanboat.kottoy.presentation.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
-import idv.fanboat.kottoy.R
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.socks.library.KLog
 import idv.fanboat.kottoy.databinding.FragmentFirstBinding
+import idv.fanboat.kottoy.model.User
+import idv.fanboat.kottoy.presentation.base.BaseFragment
+import idv.fanboat.kottoy.presentation.extenstions.dataStore
+import idv.fanboat.kottoy.presentation.extenstions.getValue
+import idv.fanboat.kottoy.presentation.extenstions.showToast
+import idv.fanboat.kottoy.presentation.login.LoginActivity
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
-class FirstFragment : Fragment() {
+class FirstFragment : BaseFragment<FragmentFirstBinding>() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private val onLogin = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    { result ->
+        KLog.e("TAG", "onActivityResult: ${result.resultCode} ${result.data}")
+        lifecycleScope.launch {
+            val user = requireActivity().dataStore.getValue<User>("User").first()
+            showToast("onLogin: ${user.email}").show()
+            binding.textviewFirst.text = user.email
+        }
+    }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
-
+    override fun createViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        isRoot: Boolean
+    ): FragmentFirstBinding {
+        return FragmentFirstBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            onLogin.launch(intent)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
